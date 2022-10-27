@@ -229,31 +229,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             score += 1
         } else if node.name == "teleport1" {
             guard let teleport2 = node.parent?.childNode(withName: "teleport2") else { return }
-            teleport2.name = "teleport"
             
-            let fadeOut = SKAction.fadeOut(withDuration: 0.1)
-            let move = SKAction.move(to: teleport2.position, duration: 0.4)
-            let fadeIn = SKAction.fadeIn(withDuration: 0.1)
+            let fadeOut = SKAction.fadeOut(withDuration: 0.05)
+            let move = SKAction.move(to: teleport2.position, duration: 0.01)
+            let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+            
+            teleport2.name = "teleport"
             let seq = SKAction.sequence([fadeOut, move, fadeIn])
             
             player.run(seq)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 teleport2.name = "teleport2"
             }
             
         } else if node.name == "teleport2" {
             guard let teleport1 = node.parent?.childNode(withName: "teleport1") else { return }
-            teleport1.name = "teleport"
             
             let fadeOut = SKAction.fadeOut(withDuration: 0.05)
-            let move = SKAction.move(to: teleport1.position, duration: 0.06)
+            let move = SKAction.move(to: teleport1.position, duration: 0.01)
             let fadeIn = SKAction.fadeIn(withDuration: 0.2)
             let seq = SKAction.sequence([fadeOut, move, fadeIn])
             
+            teleport1.name = "teleport"
             player.run(seq)
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 teleport1.name = "teleport1"
             }
         } else if node.name == "finish" {
